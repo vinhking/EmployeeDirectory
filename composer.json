@@ -1,0 +1,9 @@
+{
+    "name": "EmployeeDirectory",
+    "require": {
+        "cakephp/cakephp": "2.8.*"
+    },
+    "config": {
+        "vendor-dir": "Vendor/"
+    }
+}
