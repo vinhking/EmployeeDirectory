@@ -1,0 +1,1 @@
+<span>Login : <?php echo $name;?> | <a href="logout">Logout</a></span>
