@@ -89,12 +89,12 @@ class UsersController extends AppController {
                 $file = $this->request->data['User']['upload'];
 
                 $ext = substr(strtolower(strrchr($file['name'], '.')), 1);
-                $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
+                $arr_ext = Configure::read('arr_ext'); //array('jpg', 'jpeg', 'gif', 'png');
 
                 if (in_array($ext, $arr_ext)) {
-                    move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img\\webimages\\users\\' . $file['name']);
+                    move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img' . DS . 'webimages' . DS . 'users' . DS . $file['name']);
                     //prepare the filename for database entry
-                    $this->request->data['User']['avatar'] = WWW_ROOT . 'img\\webimages\\users\\' . $file['name'];
+                    $this->request->data['User']['avatar'] = 'img/webimages/users/' . $file['name'];
                 }
             }
 
