@@ -13,17 +13,17 @@ class Department extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
+        'name' => array(
+            'required1' => array(
+                'rule' => 'notBlank',
+                'message' => 'Tên phòng ban được yêu cầu'
+            ),
+            'required2' => array(
+                'rule' => 'isUnique',
+                'message' => 'Tên phòng ban đã tồn tại'
+            )
+        )
+    );
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
