@@ -7,7 +7,9 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('email');
 		echo $this->Form->input('birth');
-		echo $this->Form->input('gender');
+		echo $this->Form->input('gender', array(
+                'options' => array(1 => 'Nam', 0 => 'Nữ')
+                ));
 		echo $this->Form->input('position');
 		echo $this->Form->input('department_id');
 	?>

@@ -14,38 +14,33 @@ class Employee extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'email' => array(
-			'email' => array(
-				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'department_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
-
+        'name' => array(
+            'required1' => array(
+                'rule' => 'notBlank',
+                'message' => 'Tên nhân viên được yêu cầu'
+            )
+        ),
+        'email' => array(
+            'required1' => array(
+                'rule' => 'notBlank',
+                'message' => 'Email được yêu cầu'
+            ),
+            "required2" => array(
+                'rule' => array('email', true),
+                "message" => "Vui lòng nhập đúng định dạng",
+            ),
+            'required3' => array(
+                'rule' => 'isUnique',
+                'message' => 'Email đã tồn tại'
+            )
+        ),
+        'position' => array(
+            'required1' => array(
+                'rule' => 'notBlank',
+                'message' => 'Chức vụ nhân viên được yêu cầu'
+            )
+        )   
+        );
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**

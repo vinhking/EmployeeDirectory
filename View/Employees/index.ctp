@@ -1,5 +1,16 @@
 <div class="employees index">
     <h2><?php echo __('Employees'); ?></h2>
+    <?php 
+    if($this->Session->check('Auth.User.username')){
+     echo 'Hello, ' . $this->Session->read('Auth.User.username').' | ';
+     echo $this->Html->link(__('Logout'), array('controller' => 'users', 'action' => 'logout'));
+    }else{
+        echo $this->Html->link(__('Login'), array('controller' => 'users', 'action' => 'login'));
+    }
+    ?>
+    <br>
+    <br>
+    <div><?php echo $this->Html->link(__('Search Employee By Discription Of Name'), array('action' => 'search')); ?></div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -21,7 +32,7 @@
                 <td><?php echo h($employee['Employee']['id']); ?>&nbsp;</td>
                 <td><?php echo h($employee['Employee']['name']); ?>&nbsp;</td>
                 <td><?php echo h($employee['Employee']['email']); ?>&nbsp;</td>
-                <td><?php echo h($employee['Employee']['birth']); ?>&nbsp;</td>
+                <td><?php echo h(explode(' ', $employee['Employee']['birth'])[0]); ?>&nbsp;</td>
                 <td><?php if($employee['Employee']['gender']==1){
                                 echo h('Nam');
                             }
@@ -56,6 +67,7 @@
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
     </div>
+    <div><?php echo $this->Html->link(__('Add Employee'), array('action' => 'add')); ?></div>
 </div>
 <div class="actions">
     <h3><?php echo __('Category'); ?></h3>
