@@ -22,9 +22,6 @@
                     <th><?php echo $this->Paginator->sort('gender'); ?></th>
                     <th><?php echo $this->Paginator->sort('position'); ?></th>
                     <th><?php echo $this->Paginator->sort('department_id'); ?></th>
-                    <th><?php echo $this->Paginator->sort('created'); ?></th>
-                    <th><?php echo $this->Paginator->sort('modified'); ?></th>
-                    <th class="actions"><?php echo __('Actions'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -43,13 +40,6 @@
                     <td><?php echo h($employee['Employee']['position']); ?>&nbsp;</td>
                     <td>
 			<?php echo $this->Html->link($employee['Department']['name'], array('controller' => 'departments', 'action' => 'view', $employee['Department']['id'])); ?>
-                    </td>
-                    <td><?php echo h($employee['Employee']['created']); ?>&nbsp;</td>
-                    <td><?php echo h($employee['Employee']['modified']); ?>&nbsp;</td>
-                    <td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $employee['Employee']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $employee['Employee']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $employee['Employee']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $employee['Employee']['id']))); ?>
                     </td>
                 </tr>
 <?php endforeach; ?>
