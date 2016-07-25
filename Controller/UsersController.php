@@ -82,14 +82,16 @@ class UsersController extends AppController {
      * @return void
      */
     public function add() {
+        
         if ($this->request->is('post')) {
+            //debug($this->request);exit();
             $this->User->create();
 
-            if (!empty($this->request->data['User']['upload']['name'])) {
-                $file = $this->request->data['User']['upload'];
+            if (!empty($this->request->data['User']['avatar']['name'])) {
+                $file = $this->request->data['User']['avatar'];
 
                 $ext = substr(strtolower(strrchr($file['name'], '.')), 1);
-                $arr_ext = Configure::read('arr_ext'); //array('jpg', 'jpeg', 'gif', 'png');
+                $arr_ext = Configure::read('arr_ext'); //array('jpg', 'jpeg', 'bmp', 'gif', 'png');
 
                 if (in_array($ext, $arr_ext)) {
                     move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img' . DS . 'webimages' . DS . 'users' . DS . $file['name']);

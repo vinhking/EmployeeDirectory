@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/EmployeeDirectory/View/Users/add.ctp</file>
+            <file>file:/C:/xampp/htdocs/EmployeeDirectory/View/Users/index.ctp</file>
+            <file>file:/C:/xampp/htdocs/EmployeeDirectory/Controller/UsersController.php</file>
             <file>file:/C:/xampp/htdocs/EmployeeDirectory/Model/User.php</file>
             <file>file:/C:/xampp/htdocs/EmployeeDirectory/View/Employees/edit.ctp</file>
             <file>file:/C:/xampp/htdocs/EmployeeDirectory/View/Users/edit.ctp</file>
-            <file>file:/C:/xampp/htdocs/EmployeeDirectory/Controller/EmployeesController.php</file>
-            <file>file:/C:/xampp/htdocs/EmployeeDirectory/View/Employees/search.ctp</file>
-            <file>file:/C:/xampp/htdocs/EmployeeDirectory/Controller/DepartmentsController.php</file>
+            <file>file:/C:/xampp/htdocs/EmployeeDirectory/Config/config.php</file>
             <file>file:/C:/xampp/htdocs/EmployeeDirectory/View/Employees/index.ctp</file>
-            <file>file:/C:/xampp/htdocs/EmployeeDirectory/View/Departments/index.ctp</file>
         </group>
     </open-files>
 </project-private>

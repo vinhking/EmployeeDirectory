@@ -28,8 +28,17 @@ class EmployeesController extends AppController {
      * @return void
      */
     public function index() {
-        $this->Employee->recursive = 0;
-        $this->set('employees', $this->Paginator->paginate());
+        // debug($this->request);exit();
+        if ($this->request->is('post')) {
+        $data = $this->Paginator->paginate('Employee', array(
+            'Employee.name LIKE' => "%".$this->request->data['Employee']['name']."%"
+        ));
+        $this->set('employees', $data);
+        }else{
+            $this->Employee->recursive = 0;
+            $this->set('employees', $this->Paginator->paginate());
+        }
+        
     }
 
     /**
@@ -113,14 +122,14 @@ class EmployeesController extends AppController {
         return $this->redirect(array('action' => 'index'));
     }
 
-    public function search() {
-        //debug($this->request->data['Employee']['name']);
-        if ($this->request->is('post')) {
-        $data = $this->Paginator->paginate('Employee', array(
-            'Employee.name LIKE' => "%".$this->request->data['Employee']['name']."%"
-        ));
-        $this->set('employees', $data);
-        }
-    }
+//    public function search() {
+//        debug($this->request);exit();
+//        if ($this->request->is('post')) {
+//        $data = $this->Paginator->paginate('Employee', array(
+//            'Employee.name LIKE' => "%".$this->request->data['Employee']['name']."%"
+//        ));
+//        $this->set('employees', $data);
+//        }
+//    }
 
 }

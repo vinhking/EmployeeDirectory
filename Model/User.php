@@ -71,8 +71,10 @@ class User extends AppModel {
         ),
         'avatar' => array(
             'required' => array(
-                'rule' => 'notBlank',
-                'message' => 'Avatar được yêu cầu'
+                'rule' => array('extension', array('jpg', 'jpeg', 'bmp', 'png', 'gif')),
+//                'required' => false,
+                'allowEmpty' => true,
+                'message' => 'Không đúng định dạng file ảnh'
             )
         ),
         'role' => array(
@@ -83,6 +85,41 @@ class User extends AppModel {
             )
         )
     );
+    
+//    function checkType($data, $required = false){
+//        //debug($data);exit();
+//        $data = array_shift($data);
+//        if(!$required && $data['error'] == 4){
+//            return true;
+//        }
+//        $allowedMime = array('image/gif','image/jpeg','image/pjpeg','image/png');
+//        if(!in_array($data['type'], $allowedMime)){
+//            return false;
+//        }
+//        return true;
+//    }
+    
+//    public function checkImageFormat($data) {
+//        debug($data);exit();
+//        if (!empty($data['avatar']['name'])){
+//            $filename = $data['avatar']['name'];
+//            $_validFileExtensions = array('.jpg', '.jpeg', '.bmp', '.gif', '.png');
+//                if (strlen($filename) > 0) {
+//                    $blnValid = false;
+//                    $number_element = count($_validFileExtensions);
+//                    for ($j = 0; $j < $number_element; $j++) {
+//                        $sCurExtension = $_validFileExtensions[j];
+//                        if (strtolower(substr($filename, strlen($filename) - strlen($sCurExtension), strlen($sCurExtension))) == strtolower($sCurExtension)) {
+//                            $blnValid = true;
+//                            break;
+//                        }
+//                    }
+//                    return $blnValid;
+//                }
+//        }else{
+//            return true;
+//        }
+//    }
 
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['password'])) {
