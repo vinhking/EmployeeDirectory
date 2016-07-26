@@ -71,9 +71,10 @@ class User extends AppModel {
         ),
         'avatar' => array(
             'required' => array(
+                //'rule' => 'checkType',
                 'rule' => array('extension', array('jpg', 'jpeg', 'bmp', 'png', 'gif')),
-//                'required' => false,
-                'allowEmpty' => true,
+                //'required' => false,
+                //'allowEmpty' => true,
                 'message' => 'Không đúng định dạng file ảnh'
             )
         ),
@@ -87,7 +88,7 @@ class User extends AppModel {
     );
     
 //    function checkType($data, $required = false){
-//        //debug($data);exit();
+//        debug($data);exit();
 //        $data = array_shift($data);
 //        if(!$required && $data['error'] == 4){
 //            return true;

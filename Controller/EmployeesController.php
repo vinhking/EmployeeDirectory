@@ -16,6 +16,8 @@ class EmployeesController extends AppController {
      * @var array
      */
     public $components = array('Paginator');
+    
+    public $layout = 'layout';
 
     
     public function beforeFilter() {
@@ -30,12 +32,18 @@ class EmployeesController extends AppController {
     public function index() {
         // debug($this->request);exit();
         if ($this->request->is('post')) {
+        $this->Paginator->settings = array(
+            'limit' => 10
+        );
         $data = $this->Paginator->paginate('Employee', array(
             'Employee.name LIKE' => "%".$this->request->data['Employee']['name']."%"
         ));
         $this->set('employees', $data);
         }else{
             $this->Employee->recursive = 0;
+            $this->Paginator->settings = array(
+                'limit' => 10
+            );
             $this->set('employees', $this->Paginator->paginate());
         }
         

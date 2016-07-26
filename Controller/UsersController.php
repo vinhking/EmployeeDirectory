@@ -17,7 +17,16 @@ class UsersController extends AppController {
      * @var array
      */
     public $components = array('Paginator');
+    public $paginate = array(
+        'limit' => 25,
+//        'order' => array(
+//            'Post.title' => 'asc'
+//        )
+    );
     
+    public $layout = 'layout';
+
+
     public function isAuthorized($user) {
         // Admin can access every action
 //        $action = 'edit';
@@ -57,7 +66,11 @@ class UsersController extends AppController {
      * @return void
      */
     public function index() {
+        $this->set('title', 'xxxx');
         $this->User->recursive = 0;
+        $this->Paginator->settings = array(
+            'limit' => 10
+        );
         $this->set('users', $this->Paginator->paginate());
     }
 

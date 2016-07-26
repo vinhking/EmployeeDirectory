@@ -16,6 +16,8 @@ class DepartmentsController extends AppController {
      * @var array
      */
     public $components = array('Paginator');
+    
+    public $layout = 'layout';
 
     /**
      * index method
@@ -29,6 +31,9 @@ class DepartmentsController extends AppController {
 
     public function index() {
         $this->Department->recursive = 0;
+        $this->Paginator->settings = array(
+            'limit' => 10
+        );
         $this->set('departments', $this->Paginator->paginate());
     }
 
@@ -115,6 +120,10 @@ class DepartmentsController extends AppController {
             throw new NotFoundException(__('Invalid department'));
         }
 
+        $this->Paginator->settings = array(
+            'limit' => 10
+        );
+        
         $data = $this->Paginator->paginate('Employee',array(
             'Employee.department_id' => $id
         ));
