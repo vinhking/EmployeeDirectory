@@ -45,6 +45,20 @@ class User extends AppModel {
                 'message' => 'Tối thiểu 6 kí tự'
             )
         ),
+        'repeat_password' => array(
+            'required1' => array(
+                'rule' => 'notBlank',
+                'message' => 'Yêu cầu nhập lại password'
+            ),
+            'required2' => array(
+                'rule' => array('minLength', '6'),
+                'message' => 'Tối thiểu 6 kí tự'
+            ),
+            'required3' => array(
+                'rule' => 'check_repeat',
+                'message' => 'Password nhập lại không chính xác'
+            )
+        ),
         'email' => array(
             'required1' => array(
                 'rule' => 'notBlank',
@@ -71,10 +85,10 @@ class User extends AppModel {
         ),
         'avatar' => array(
             'required' => array(
-                //'rule' => 'checkType',
-                'rule' => array('extension', array('jpg', 'jpeg', 'bmp', 'png', 'gif')),
+                'rule' => 'checkImageFormat',
+                //'rule' => array('extension', array('jpg', 'jpeg', 'bmp', 'png', 'gif')),
                 //'required' => false,
-                //'allowEmpty' => true,
+                'allowEmpty' => true,
                 'message' => 'Không đúng định dạng file ảnh'
             )
         ),
@@ -100,8 +114,23 @@ class User extends AppModel {
 //        return true;
 //    }
     
-//    public function checkImageFormat($data) {
-//        debug($data);exit();
+    public function checkImageFormat() {
+        //debug($this->data);exit();
+        if (!empty($this->data['User']['avatar']['type'])){
+            $file_type = $this->data['User']['avatar']['type'];
+            $_validFileType = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/gif', 'image/png');
+                if (in_array($file_type, $_validFileType)){
+                    return true;
+                }else{
+                    return false;
+                }
+        }else{
+            return true;
+        }
+    }
+    
+//    public function checkImageFormat() {
+//        debug($this->data);exit();
 //        if (!empty($data['avatar']['name'])){
 //            $filename = $data['avatar']['name'];
 //            $_validFileExtensions = array('.jpg', '.jpeg', '.bmp', '.gif', '.png');
@@ -122,6 +151,10 @@ class User extends AppModel {
 //        }
 //    }
 
+    public function check_repeat(){
+        return $this->data[$this->alias]['password'] === $this->data[$this->alias]['repeat_password'];
+    }
+    
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['password'])) {
             $passwordHasher = new BlowfishPasswordHasher();

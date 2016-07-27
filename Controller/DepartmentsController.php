@@ -30,6 +30,7 @@ class DepartmentsController extends AppController {
     }
 
     public function index() {
+        $this->set('title', 'List Department');
         $this->Department->recursive = 0;
         $this->Paginator->settings = array(
             'limit' => 10
@@ -45,6 +46,7 @@ class DepartmentsController extends AppController {
      * @return void
      */
     public function view($id = null) {
+        $this->set('title', 'Department Detail');
         if (!$this->Department->exists($id)) {
             throw new NotFoundException(__('Invalid department'));
         }
@@ -58,6 +60,7 @@ class DepartmentsController extends AppController {
      * @return void
      */
     public function add() {
+        $this->set('title', 'Add Department');
         if ($this->request->is('post')) {
             $this->Department->create();
             if ($this->Department->save($this->request->data)) {
@@ -77,6 +80,7 @@ class DepartmentsController extends AppController {
      * @return void
      */
     public function edit($id = null) {
+        $this->set('title', 'Edit User');
         if (!$this->Department->exists($id)) {
             throw new NotFoundException(__('Invalid department'));
         }
@@ -115,6 +119,7 @@ class DepartmentsController extends AppController {
     }
 
     public function list_employees($id = null) {
+        $this->set('title', 'List Employee Of The Department');
         $this->Department->id = $id;
         if (!$this->Department->exists()) {
             throw new NotFoundException(__('Invalid department'));

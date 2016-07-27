@@ -17,15 +17,14 @@ class UsersController extends AppController {
      * @var array
      */
     public $components = array('Paginator');
-    public $paginate = array(
-        'limit' => 25,
-//        'order' => array(
-//            'Post.title' => 'asc'
-//        )
-    );
-    
-    public $layout = 'layout';
+//    public $paginate = array(
+//        'limit' => 25,
+////        'order' => array(
+////            'Post.title' => 'asc'
+////        )
+//    );
 
+    public $layout = 'layout';
 
     public function isAuthorized($user) {
         // Admin can access every action
@@ -33,7 +32,7 @@ class UsersController extends AppController {
 //        debug($user);
 //        debug($this->request->params['action']);
 //        debug($this->request);die;
-        if ((isset($user['role']) && $user['role'] == 1) || ($this->request->params['action'] == 'edit' && $user['id'] == $this->request->params['pass'][0])){
+        if ((isset($user['role']) && $user['role'] == 1) || ($this->request->params['action'] == 'edit' && $user['id'] == $this->request->params['pass'][0])) {
             return true;
         }
         // Default deny
@@ -48,6 +47,7 @@ class UsersController extends AppController {
 
     public function login() {
         //echo Apphash('vinh123456');die;
+        $this->set('title', 'Login');
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirectUrl());
@@ -66,7 +66,7 @@ class UsersController extends AppController {
      * @return void
      */
     public function index() {
-        $this->set('title', 'xxxx');
+        $this->set('title', 'List User');
         $this->User->recursive = 0;
         $this->Paginator->settings = array(
             'limit' => 10
@@ -82,6 +82,7 @@ class UsersController extends AppController {
      * @return void
      */
     public function view($id = null) {
+        $this->set('title', 'User Detail');
         if (!$this->User->exists($id)) {
             throw new NotFoundException(__('Invalid user'));
         }
@@ -95,39 +96,64 @@ class UsersController extends AppController {
      * @return void
      */
     public function add() {
-        
+        $this->set('title', 'Add User');
         if ($this->request->is('post')) {
-            //debug($this->request);exit();
+            //debug($this->request->data);exit();
             $this->User->create();
 
-            if (!empty($this->request->data['User']['avatar']['name'])) {
-                $file = $this->request->data['User']['avatar'];
-
-                $ext = substr(strtolower(strrchr($file['name'], '.')), 1);
-                $arr_ext = Configure::read('arr_ext'); //array('jpg', 'jpeg', 'bmp', 'gif', 'png');
-
-                if (in_array($ext, $arr_ext)) {
+            $this->User->set($this->request->data);
+            if ($this->User->validates()) {
+                if (!empty($this->request->data['User']['avatar']['name'])) {
+                    $file = $this->request->data['User']['avatar'];
                     move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img' . DS . 'webimages' . DS . 'users' . DS . $file['name']);
-                    //prepare the filename for database entry
                     $this->request->data['User']['avatar'] = 'img/webimages/users/' . $file['name'];
+                }else{
+                    $this->request->data['User']['avatar'] = '';
                 }
-            }
 
-            if ($this->User->save($this->request->data)) {
-                $this->Flash->success(__('The user has been saved'));
-                $Email = new CakeEmail();
-                $Email->config('gmail');
-                $Email->from(array('nguyenquangvinh.bkhn@gmail.com' => 'EmployeeDirectory'));
-                $Email->to($this->request->data['User']['email']);
-                $Email->subject('Thông tin tài khoản EmployeeDirectory');
-                $Email->send("Mật khẩu tài khoản EmployeeDirectory của bạn là: " 
-                        . $this->request->data['User']['password']
-                        ." . Hãy thay đổi password trong lần đăng nhập đầu tiên, Thank you!");
-                return $this->redirect(array('action' => 'index'));
+                if ($this->User->save($this->request->data)) {
+                    $this->Flash->success(__('The user has been saved'));
+                    $Email = new CakeEmail();
+                    $Email->config('gmail');
+                    $Email->from(array('nguyenquangvinh.bkhn@gmail.com' => 'EmployeeDirectory'));
+                    $Email->to($this->request->data['User']['email']);
+                    $Email->subject('Thông tin tài khoản EmployeeDirectory');
+                    $Email->send("Mật khẩu tài khoản EmployeeDirectory của bạn là: "
+                            . $this->request->data['User']['password']
+                            . " . Hãy thay đổi password trong lần đăng nhập đầu tiên, Thank you!");
+                    return $this->redirect(array('action' => 'index'));
+                }
+                $this->Flash->error(
+                        __('The user could not be saved. Please, try again.')
+                );
             }
-            $this->Flash->error(
-                    __('The user could not be saved. Please, try again.')
-            );
+//            if (!empty($this->request->data['User']['avatar']['name'])) {
+//                $file = $this->request->data['User']['avatar'];
+//
+//                $ext = substr(strtolower(strrchr($file['name'], '.')), 1);
+//                $arr_ext = Configure::read('arr_ext'); //array('jpg', 'jpeg', 'bmp', 'gif', 'png');
+//
+//                if (in_array($ext, $arr_ext)) {
+//                    move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img' . DS . 'webimages' . DS . 'users' . DS . $file['name']);
+//                    //prepare the filename for database entry
+//                    $this->request->data['User']['avatar'] = 'img/webimages/users/' . $file['name'];
+//                }
+//            }
+//            if ($this->User->save($this->request->data)) {
+//                $this->Flash->success(__('The user has been saved'));
+//                $Email = new CakeEmail();
+//                $Email->config('gmail');
+//                $Email->from(array('nguyenquangvinh.bkhn@gmail.com' => 'EmployeeDirectory'));
+//                $Email->to($this->request->data['User']['email']);
+//                $Email->subject('Thông tin tài khoản EmployeeDirectory');
+//                $Email->send("Mật khẩu tài khoản EmployeeDirectory của bạn là: "
+//                        . $this->request->data['User']['password']
+//                        . " . Hãy thay đổi password trong lần đăng nhập đầu tiên, Thank you!");
+//                return $this->redirect(array('action' => 'index'));
+//            }
+//            $this->Flash->error(
+//                    __('The user could not be saved. Please, try again.')
+//            );
         }
     }
 
@@ -139,6 +165,7 @@ class UsersController extends AppController {
      * @return void
      */
     public function edit($id = null) {
+        $this->set('title', 'Edit User');
         if (!$this->User->exists($id)) {
             throw new NotFoundException(__('Invalid user'));
         }

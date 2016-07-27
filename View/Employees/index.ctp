@@ -6,6 +6,7 @@
         'url' => array(
             'action' => 'index'
         ),
+        'method' => 'get',
         'class' => 'form-inline',
         'inputDefaults' => array(
             'format' => array('before', 'label', 'between', 'input', 'error', 'after'),
@@ -22,7 +23,6 @@
     <?php echo ' '; ?>
     <?php echo $this->Form->button($this->Html->tag('span', '', array('class' => 'glyphicon glyphicon-search')) . ' Search', array('type' => 'submit', 'class' => 'btn btn-info'), array('escape' => false)); ?>
     <?php echo $this->Form->end(); ?>
-
 </div>
 <?php if (!empty($employees)) { ?>
     <table class="table" cellpadding="0" cellspacing="0">

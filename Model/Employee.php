@@ -13,9 +13,10 @@ class Employee extends AppModel {
  *
  * @var array
  */
+    
 	public $validate = array(
         'name' => array(
-            'required1' => array(
+            'required' => array(
                 'rule' => 'notBlank',
                 'message' => 'Tên nhân viên được yêu cầu'
             )

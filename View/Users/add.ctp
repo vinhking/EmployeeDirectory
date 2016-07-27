@@ -15,6 +15,7 @@ echo $this->Form->create('User', array(
 <?php echo '<h2>'.__('Add User').'</h2>'; ?>
 <?php echo $this->Form->input('username', array('class' => 'form-control'));?>
 <?php echo $this->Form->input('password', array('class' => 'form-control'));?>
+<?php echo $this->Form->input('repeat_password', array('class' => 'form-control', 'type' => 'password'));?>
 <?php echo $this->Form->input('email', array('class' => 'form-control'));?>
 <?php echo $this->Form->input('display_name', array('class' => 'form-control'));?>
 <?php echo $this->Form->input('avatar', array('type' => 'file'));?>
